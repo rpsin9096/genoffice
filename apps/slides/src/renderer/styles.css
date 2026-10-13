@@ -9186,3 +9186,180 @@ body.show-curtain::after {
   user-select: none;
   pointer-events: none;
 }
+
+/* Study Aula Panel and Shell styling — unified with GenOffice AI panel tokens (light & dark) */
+.aula-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--color-text-primary);
+  font-family: var(--gs-font-sans);
+}
+
+.aula-shell-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.aula-shell-tabs button {
+  flex: 1;
+  padding: 10px 14px;
+  border: none;
+  background: transparent;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast, 120ms ease);
+}
+
+.aula-shell-tabs button:hover:not([aria-selected="true"]) {
+  color: var(--color-text-primary);
+  background: var(--hover);
+}
+
+.aula-shell-tabs button[aria-selected="true"] {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent);
+  background: var(--surface);
+}
+
+.aula-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  padding: 16px;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.aula-panel h2 {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+.aula-panel section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aula-panel h3 {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.aula-panel textarea {
+  width: 100%;
+  min-height: 90px;
+  max-height: 180px;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-default, var(--border));
+  border-radius: var(--radius-8, 8px);
+  box-sizing: border-box;
+  background: var(--color-bg-page, var(--surface));
+  color: var(--color-text-primary);
+  transition: border-color var(--transition-fast, 150ms ease);
+}
+
+.aula-panel textarea:focus {
+  outline: none;
+  border-color: var(--color-border-strong, var(--accent));
+}
+
+.aula-panel textarea::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.aula-panel ol, .aula-panel ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: 140px;
+  overflow-y: auto;
+  color: var(--color-text-primary);
+}
+
+.aula-panel pre {
+  margin: 0;
+  padding: 10px 12px;
+  background: var(--color-bg-subtle, var(--hover));
+  border: 1px solid var(--color-border-default, var(--border));
+  border-radius: var(--radius-8, 8px);
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  max-height: 140px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.aula-ai-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--slides-on-accent, #ffffff);
+  border: none;
+  border-radius: var(--radius-8, 8px);
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: opacity 150ms ease, transform 100ms ease;
+  margin: 6px 0;
+}
+
+.aula-ai-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.aula-ai-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.aula-panel button[data-testid="aula-build"] {
+  margin-top: 10px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--slides-on-accent, #ffffff);
+  border: none;
+  border-radius: var(--radius-8, 8px);
+  cursor: pointer;
+  transition: opacity 150ms ease;
+  flex-shrink: 0;
+}
+
+.aula-panel button[data-testid="aula-build"]:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+

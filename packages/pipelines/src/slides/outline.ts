@@ -4,7 +4,7 @@
  * page). The check mirrors the rules that stage is prompted with, so a CLI
  * agent gets them as findings instead of relying on having read them.
  */
-import { MAX_DECK_PAGES } from './deck-spec'
+export const MAX_DECK_PAGES = 60
 
 export const PAGE_TYPES = ['cover', 'content', 'data', 'closing'] as const
 export type PageType = (typeof PAGE_TYPES)[number]

@@ -17,6 +17,10 @@ export interface AulaPanelProps {
   manifestText?: string
   onManifestChange?: (text: string) => void
   fillBrief?: string
+  onGenerateWithAi?: () => void
+  generating?: boolean
+  statusText?: string
+  onRepairWithAi?: () => void
 }
 
 /** Fase 3 — material → curva → lint Layer B visível → build. No marketing outline. */
@@ -31,6 +35,10 @@ export function AulaPanel({
   manifestText,
   onManifestChange,
   fillBrief,
+  onGenerateWithAi,
+  generating,
+  statusText,
+  onRepairWithAi,
 }: AulaPanelProps) {
   const blocked = layerB.length > 0 || canBuild === false
   return (
@@ -56,6 +64,16 @@ export function AulaPanel({
             <li key={s.heading}>{s.heading}</li>
           ))}
         </ol>
+        {onGenerateWithAi ? (
+          <button
+            type="button"
+            className="aula-ai-btn"
+            disabled={generating || sections.length === 0}
+            onClick={onGenerateWithAi}
+          >
+            {generating ? `✨ ${statusText || 'Gerando em paralelo...'}` : '✨ Gerar Slides com IA (Paralelo)'}
+          </button>
+        ) : null}
         {fillBrief ? (
           <pre data-testid="aula-fill-brief">{fillBrief}</pre>
         ) : null}
@@ -70,13 +88,25 @@ export function AulaPanel({
             placeholder="manifest.json"
           />
         ) : null}
+        {layerB.length > 0 && onRepairWithAi ? (
+          <button
+            type="button"
+            className="aula-ai-btn"
+            disabled={generating}
+            onClick={onRepairWithAi}
+          >
+            {generating
+              ? `✨ ${statusText || 'Revisando slides com IA...'}`
+              : `✨ Corrigir ${layerB.length} Violação(ões) com IA`}
+          </button>
+        ) : null}
         {layerB.length === 0 ? (
           <p>PASS</p>
         ) : (
           <ul>
             {layerB.map((row, i) => (
               <li key={`${row.loc}-${i}`} data-code={row.code}>
-                {row.loc}: {row.code}
+                {row.loc}: {row.code} — {row.message}
               </li>
             ))}
           </ul>

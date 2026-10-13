@@ -42,6 +42,10 @@ export default defineConfig({
         here,
         '../../packages/pipelines/src/slides/layout-audit.ts',
       ),
+      '@genoffice/pipelines/slides/study-aula': resolve(
+        here,
+        '../../packages/pipelines/src/slides/study-aula.ts',
+      ),
       '@genoffice/pipelines/slides': resolve(here, '../../packages/pipelines/src/slides/index.ts'),
       '@genoffice/docx-engine/metafile': resolve(
         here,

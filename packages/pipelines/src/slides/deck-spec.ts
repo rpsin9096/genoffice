@@ -18,7 +18,8 @@ import {
   type ParseSpecOptions,
 } from './page-spec'
 
-export const MAX_DECK_PAGES = 60
+import { MAX_DECK_PAGES } from './outline'
+export { MAX_DECK_PAGES }
 /** Raw LLM deck-spec budget; larger payloads are rejected before JSON.parse. */
 export const MAX_DECK_SPEC_RAW_CHARS = 2_000_000
 /** CLI spec files may inline data: URL images, so the file budget is far wider. */

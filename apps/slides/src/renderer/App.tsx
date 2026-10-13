@@ -113,6 +113,7 @@ import { showToast } from './components/toast-bus'
 import { t, useI18n } from './i18n/locale'
 import { AiPanel } from './ai/AiPanel'
 import { StudyAulaShell } from './ai/StudyAulaShell'
+import { landAulaPages } from './ai/aula-land'
 import { ChartDataDialog } from './components/ChartDataDialog'
 import type { BrushFormat } from './format-brush'
 import { isTextUndoTarget, shouldRouteHistoryToDeck } from './undo-routing'
@@ -3324,7 +3325,7 @@ export function App() {
         curFontSizeMixed={fontStatus?.sizeMixed ?? false}
         onFontFamily={onFontFamily}
         onFontSize={onFontSize}
-        onInsertTable={(rows, cols) => void insertTable(rowsertTable={(rows, cols) => void insertTable(rows, cols)}
+        onInsertTable={(rows, cols) => void insertTable(rows, cols)}
         transition={transition}
         onTransition={(kind, all) => {
           void applyTransition(kind, all)
@@ -3558,7 +3559,19 @@ export function App() {
           <div className={`ai-dock${showAi && aiSettings ? '' : ' collapsed'}`}>
             {/* always mounted once settings load: collapse must not drop state or in-flight runs */}
             {aiSettings ? (
-              <StudyAulaShell>
+              <StudyAulaShell
+                aiSettings={aiSettings}
+                onAulaBuild={async (pages) => {
+                  if (!window.slidesApi) return
+                  const res = await landAulaPages(pages, window.slidesApi, FIT_WIDTH)
+                  if (res.ok) {
+                    applyDeck(res.slides)
+                    showToast('Aula gerada com sucesso!', 'success')
+                  } else {
+                    showToast(`Falha ao gerar aula: ${res.error}`, 'error')
+                  }
+                }}
+              >
               <AiPanel
                 key={aiPanelKey}
                 slides={slides}
@@ -4717,16 +4730,6 @@ function ZoomControls({
           const v = Number(e.target.value)
           setLive(v)
           onPreview(v / 100)
-        }}
-      />
-      <button className="zoom-btn" onClick={() => step(1)}>
-        +
-      </button>
-      <span className="zoom-value">{live}%</span>
-    </>
-  )
-}
- onPreview(v / 100)
         }}
       />
       <button className="zoom-btn" onClick={() => step(1)}>
