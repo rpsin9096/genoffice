@@ -110,6 +110,8 @@ export type SpecElement = SpecShape | SpecText | SpecImage
 
 export interface PageSpec {
   background?: string
+  /** `study_*` from the study compiler: the builder must not grow text boxes (ADR-S6). */
+  layout?: string
   elements: SpecElement[]
 }
 
@@ -372,10 +374,15 @@ export function parsePageSpecObject(
     }
   }
   warnings.push(...duplicateTextWarnings(elements, keptRawIdx))
+  const layout =
+    typeof root.layout === 'string' && root.layout.trim()
+      ? root.layout.trim().slice(0, 80)
+      : undefined
   return {
     ok: true,
     spec: {
       ...(normColor(root.background) ? { background: normColor(root.background) } : {}),
+      ...(layout ? { layout } : {}),
       elements,
     },
     warnings,
@@ -625,7 +632,10 @@ export async function buildPagePptx(
 
   promoteSlideBackground(slide, opened.deck.size)
   let bytes = await savePptx(opened)
-  if (deps.fontMetrics) bytes = (await growTextBoxesToContent(bytes, deps.fontMetrics)) ?? bytes
+  const study = spec.layout?.startsWith('study_') === true
+  if (deps.fontMetrics && !study) {
+    bytes = (await growTextBoxesToContent(bytes, deps.fontMetrics)) ?? bytes
+  }
   return { bytes, imageFailures, imageWarnings }
 }
 
