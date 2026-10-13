@@ -1,0 +1,12 @@
+# FocusGate runtime state (written by --init). GATES.md and GATES.evidence.* stay tracked.
+checkpoints/
+bundles/
+briefs/
+history/
+logs/
+dlq/
+speculative/
+worktrees/
+prototypes/
+ledger.events.csv
+drift-mark.csv

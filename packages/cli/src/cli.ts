@@ -22,6 +22,7 @@ import { renderCommand } from './commands/render'
 import { sheetCommand } from './commands/sheet'
 import { skillCommand } from './commands/skill'
 import { slidesCommand } from './commands/slides'
+import { studyCommand } from './commands/study'
 import { CommandRegistry, commandHelp, type CommandContext } from './registry'
 import {
   CliError,
@@ -56,6 +57,7 @@ export function defaultRegistry(): CommandRegistry {
     .register(convertCommand)
     .register(createCommand)
     .register(slidesCommand)
+    .register(studyCommand)
     .register(sheetCommand)
     .register(docsCommand)
     .register(mergeCommand)

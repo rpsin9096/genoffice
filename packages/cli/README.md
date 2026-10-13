@@ -18,6 +18,17 @@ genoffice create --type pptx --ops deck.json --out deck.pptx
 genoffice create --type pptx --spec deck/pages --outline deck/outline.json --out deck.pptx   # one page spec file per slide (`genoffice guide slides design|spec`)
 genoffice create --type pptx --spec deck.json --out deck.pptx --render deck/previews --audit   # plus one PNG per slide (detail.previews) and the geometry audit (detail.audit) in the same call
 genoffice slides check deck/outline.json | deck/pages/03.json   # outline rules (exit 1 on errors) / build + audit one page file
+genoffice study lint inflamacao.json --json                    # Layer B style lint (exit 1 on STYLE_CRUTCH / filler)
+genoffice study compile inflamacao.json --out deck/pages       # write 01.json… page specs for `create --spec`
+genoffice study all inflamacao.json --out aula.pptx            # lint 1×, compile 1×, write the .pptx
+genoffice study schema [definition|tokens] --json              # 35 `when` lines, one module contract, or the UCP WCAG token table
+genoffice study ingest fonte.md|fonte.txt|fonte.pdf --out work # outline.md so the author matches each section to a `when`
+genoffice study check                                          # self-test: 35/35 modules compile, fixture contrast PASS
+genoffice study contrast [manifest.json] --json                # UCP fixture matrix, or scan one deck
+genoffice study imgprep [work/imgs]                            # jpg/png 20 KB-4 MB, min side 300 px; never downloads
+genoffice study new [short|lecture|custom] --out manifest.json # 4-slide JSON scaffold that lints; does not overwrite
+genoffice study curve outline.md --json                        # pedagogical sections + when catalog; refuses marketing layouts
+genoffice study fill [outline.md] --json                       # BYOK brief: LLM fills fields; motor places x
 genoffice slides replace deck.pptx --slide 2 --spec deck/pages/03.json   # rebuild one slide from its page file
 genoffice slides apply deck.pptx --ops edit.json [--dry-run] [--out copy.pptx]
 genoffice slides audit deck.pptx [--slide 0] --json            # out_of_bounds / off_slide / text_overflow / text_overflow_width / overlap / picture_distorted: typed issues with durable ids and a setTransform `suggest` where geometry fixes it

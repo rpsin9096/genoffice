@@ -112,6 +112,7 @@ import { ToastHost } from './components/toast'
 import { showToast } from './components/toast-bus'
 import { t, useI18n } from './i18n/locale'
 import { AiPanel } from './ai/AiPanel'
+import { StudyAulaShell } from './ai/StudyAulaShell'
 import { ChartDataDialog } from './components/ChartDataDialog'
 import type { BrushFormat } from './format-brush'
 import { isTextUndoTarget, shouldRouteHistoryToDeck } from './undo-routing'
@@ -3323,7 +3324,7 @@ export function App() {
         curFontSizeMixed={fontStatus?.sizeMixed ?? false}
         onFontFamily={onFontFamily}
         onFontSize={onFontSize}
-        onInsertTable={(rows, cols) => void insertTable(rows, cols)}
+        onInsertTable={(rows, cols) => void insertTable(rowsertTable={(rows, cols) => void insertTable(rows, cols)}
         transition={transition}
         onTransition={(kind, all) => {
           void applyTransition(kind, all)
@@ -3557,6 +3558,7 @@ export function App() {
           <div className={`ai-dock${showAi && aiSettings ? '' : ' collapsed'}`}>
             {/* always mounted once settings load: collapse must not drop state or in-flight runs */}
             {aiSettings ? (
+              <StudyAulaShell>
               <AiPanel
                 key={aiPanelKey}
                 slides={slides}
@@ -3592,6 +3594,7 @@ export function App() {
                   setEditQueue((prev) => prev.filter((it) => !keys.includes(it.key)))
                 }
               />
+              </StudyAulaShell>
             ) : (
               <button
                 className="ai-rail"
@@ -4714,6 +4717,16 @@ function ZoomControls({
           const v = Number(e.target.value)
           setLive(v)
           onPreview(v / 100)
+        }}
+      />
+      <button className="zoom-btn" onClick={() => step(1)}>
+        +
+      </button>
+      <span className="zoom-value">{live}%</span>
+    </>
+  )
+}
+ onPreview(v / 100)
         }}
       />
       <button className="zoom-btn" onClick={() => step(1)}>
